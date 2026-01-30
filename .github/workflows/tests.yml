@@ -14,4 +14,4 @@ jobs:
 
       - name: Build and Run Experiment
         run: |
-          docker-compose up --build --exit-code-from ope-research
+          docker compose up --build --exit-code-from ope-research
