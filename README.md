@@ -97,11 +97,11 @@ This repository is designed as a research artifact, not a demo.
 ---
 
 ## **Project Structure**
- 
+ ```bash
  src/          # Estimators and environments
 experiments/  # Research scripts
 results/      # Figures and logs
-
+```
 ---
 
 
