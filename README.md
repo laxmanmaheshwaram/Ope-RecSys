@@ -64,7 +64,7 @@ The DR estimator leverages a reward model  as a control variate to reduce the va
 
 ---
 
-## 🎓 Citation
+##  Citation
 
 ```bibtex
 @misc{laxmanmaheshwaram2026ope,
