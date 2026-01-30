@@ -1,3 +1,4 @@
+![OPE Research CI](https://github.com/laxmanmaheshwaram/Ope-RecSys/actions/workflows/tests.yml/badge.svg)
 # Off-Policy Evaluation of Recommendation Policies using Inverse Propensity Scoring
 
 ##  Research Overview
