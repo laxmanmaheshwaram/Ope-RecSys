@@ -1,48 +1,84 @@
-
-# Off-Policy Evaluation (OPE) for RecSys: A Comparative Study of IPS, DM, and DR
+# Off-Policy Evaluation of Recommendation Policies using Inverse Propensity Scoring
 
 ##  Research Overview
 
-In recommendation systems (RecSys), deploying a new policy  (the target policy) to live users is often risky and expensive. This project investigates **Off-Policy Evaluation (OPE)**—a framework for estimating the performance of a new policy using only historical data collected by a different policy  (the logging policy).
+In production recommendation systems, evaluating a new policy  (target) using historical data from a logging policy  is critical for safe deployment. This project investigates the **Bias-Variance Trade-off** in Off-Policy Evaluation (OPE).
 
-### The Hypothesis
+### Hypothesis
 
-We test the **Bias-Variance Trade-off** in three foundational estimators:
-
-1. **Inverse Propensity Scoring (IPS):** Is it truly unbiased under "common support" conditions?
-2. **Direct Method (DM):** How much does model misspecification (reward modeling) bias the results?
-3. **Doubly Robust (DR):** Does the combination of IPS and DM consistently yield the lowest Mean Squared Error (MSE)?
+* **H1:** Inverse Propensity Scoring (IPS) provides an unbiased estimate but suffers from extreme variance when policies diverge.
+* **H2:** The Direct Method (DM) provides low-variance estimates but introduces systematic bias due to reward model misspecification.
+* **H3:** The Doubly Robust (DR) estimator achieves the lowest Mean Squared Error (MSE) by combining the strengths of both.
 
 ---
 
-##  Methodology
+##  Project Structure
 
-The project implements a **Contextual Multi-Armed Bandit (CMAB)** simulator.
+The repository is organized into a modular research package:
 
-### Estimator Formulations
+* `src/environment.py`: Synthetic Contextual Bandit simulator.
+* `src/policies.py`: Implementation of stochastic logging () and greedy target () policies.
+* `src/estimators.py`: Core logic for **IPS**, **DM**, and **DR** calculations.
+* `src/utils.py`: Visualization engine with Standard Error shading.
+* `main.py`: Main entry point for running multi-trial experiments.
 
-* **IPS (Unbiased but High Variance):**
+---
 
+##  Experimental Results
 
-* **Direct Method (Biased but Low Variance):**
+### Convergence Analysis
 
+The following plots demonstrate how the estimators approach the **Ground Truth** (calculated via Monte Carlo simulation) as the number of logged samples  increases.
 
-* **Doubly Robust (Best of Both Worlds):**
+#### Single Trial Performance
+
+* **Observation:** Notice the high-variance "spikes" in the IPS and DM lines around . This illustrates **propensity overfitting**, where a rare action with a high reward causes a temporary explosion in the estimate error.
+
+#### Aggregated Performance (with Standard Error)
+![Alternative Text](results/ope_research_plot.png.png)
+* **Interpretation:** By running  trials, we visualize the **Standard Error (SE)** via the shaded regions.
+* **Findings:** * **IPS (Blue):** Shows the widest confidence interval, confirming its high variance.
+* **DM (Red):** Shows the narrowest interval but maintains a higher mean error, confirming systematic **bias**.
+* **DR (Green):** Maintains the best balance, staying closer to the ground truth with significantly less volatility than IPS.
 
 
 
 ---
 
-##  Key Findings
+##  Conclusion
 
-Based on our synthetic experiments (see `results/plots`):
-
-* **IPS** remains unbiased but becomes highly unstable when the target policy  is significantly different from the logging policy  (low propensity scores).
-* **DM** is highly dependent on the quality of the `Ridge` regressor. If the latent reward function is non-linear, DM fails to converge to the ground truth.
-* **DR** maintains robustness; even with a sub-optimal reward model, the importance sampling term corrects the bias.
+Our research confirms that for high-stakes recommendation tasks, the **Doubly Robust** estimator is the most reliable tool for OPE. It provides a "safety net": if the reward model is slightly inaccurate, the IPS component corrects it; if the importance weights are extreme, the reward model stabilizes the estimate.
 
 ---
 
+##  Technical Appendix: Doubly Robust (DR) Formulation
+
+The DR estimator leverages a reward model  as a control variate to reduce the variance of the IPS estimate.
+
+### The Equation
+
+### Key Properties
+
+1. **Unbiasedness:** The estimator remains unbiased as long as *either* the propensity scores or the reward model is correctly specified.
+2. **Variance Reduction:** By subtracting the predicted reward  from the actual reward , the importance weights only scale the **residual error**. This leads to a significantly more stable estimate than standard IPS when importance weights are large.
+
+---
+
+## 🎓 Citation
+
+```bibtex
+@misc{yourname2026ope,
+  author = {Your Name},
+  title = {Off-Policy Evaluation of Recommendation Policies Using Inverse Propensity Scoring},
+  year = {2026},
+  publisher = {GitHub},
+  journal = {GitHub Repository},
+  howpublished = {\url{https://github.com/yourusername/ope-recsys-phd}}
+}
+
+```
+
+---
 ##  How to Run
 
 1. **Clone the repository:**
