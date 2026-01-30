@@ -35,7 +35,7 @@ The following plots demonstrate how the estimators approach the **Ground Truth**
 * **Observation:** Notice the high-variance "spikes" in the IPS and DM lines around . This illustrates **propensity overfitting**, where a rare action with a high reward causes a temporary explosion in the estimate error.
 
 #### Aggregated Performance (with Standard Error)
-![Alternative Text](results/ope_research_plot.png.png)
+![Alternative Text](results/ope_research_plot.png)
 * **Interpretation:** By running  trials, we visualize the **Standard Error (SE)** via the shaded regions.
 * **Findings:** * **IPS (Blue):** Shows the widest confidence interval, confirming its high variance.
 * **DM (Red):** Shows the narrowest interval but maintains a higher mean error, confirming systematic **bias**.
@@ -67,13 +67,13 @@ The DR estimator leverages a reward model  as a control variate to reduce the va
 ## 🎓 Citation
 
 ```bibtex
-@misc{yourname2026ope,
-  author = {Your Name},
+@misc{laxmanmaheshwaram2026ope,
+  author = {Laxman Maheshwaram},
   title = {Off-Policy Evaluation of Recommendation Policies Using Inverse Propensity Scoring},
   year = {2026},
   publisher = {GitHub},
   journal = {GitHub Repository},
-  howpublished = {\url{https://github.com/yourusername/ope-recsys-phd}}
+  howpublished = {\url{https://github.com/laxmanmaheshwaram/Ope-RecSys}}
 }
 
 ```
