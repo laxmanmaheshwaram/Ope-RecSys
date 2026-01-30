@@ -21,6 +21,6 @@ def plot_ope_convergence(results_df):
     plt.legend()
     
     # Save the figure to the project's root for the README
-    plt.savefig('results_plot.png')
-    print("Plot saved as results_plot.png")
+    plt.savefig('results/plot.png')
+    print("Plot saved as plot.png")
     plt.show()
