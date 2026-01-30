@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  ope-research:
+    build: .
+    container_name: ope_experiment
+    volumes:
+      # This maps your current directory to the container
+      # This ensures results/plots are saved locally
+      - .:/app
+    environment:
+      - PYTHONUNBUFFERED=1
